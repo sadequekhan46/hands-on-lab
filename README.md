@@ -28,8 +28,7 @@ The projects demonstrate AWS storage, content delivery, IAM permissions, EC2 res
   - [2.8 CSV Report](#28-csv-report)
   - [2.9 Limitations](#29-limitations)
   - [2.10 Future Improvements](#210-future-improvements)
-- [3. Repository Structure](#3-repository-structure)
-- [4. Author](#4-author)
+- [3.Author](#3-author)
 
 ---
 
