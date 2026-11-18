@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Formula 1: A Quick Guide</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@1,700;1,800&family=Source+Serif+4:wght@400;600&display=swap">
+<style>
+:root{
+  --bg:#f3f3f1; --surface:#e6e6e3; --ink:#16171a; --muted:#55585f; --line:#c9cac6;
+  --red:#d6001c; --hero-bg:#16171a; --hero-ink:#f3f3f1;
+  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){--bg:#0f1012;--surface:#1b1c20;--ink:#ecece8;--muted:#a0a3ab;--line:#33353b;--red:#ff3b4e;--hero-bg:#0f1012;}
+}
+:root[data-theme="dark"]{--bg:#0f1012;--surface:#1b1c20;--ink:#ecece8;--muted:#a0a3ab;--line:#33353b;--red:#ff3b4e;--hero-bg:#0f1012;}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Source Serif 4",Georgia,serif;font-size:18px;line-height:1.65}
+h1,h2,h3,.cond{font-family:"Barlow Condensed","Arial Narrow",Impact,sans-serif;font-style:italic;font-weight:800;line-height:.95;margin:0}
+.wrap{max-width:960px;margin:0 auto;padding:0 24px}
+p{max-width:62ch;margin:0 0 1em}
+
+.hero{background:var(--hero-bg);color:var(--hero-ink);padding:72px 0 64px;border-bottom:8px solid var(--red)}
+.hero h1{font-size:clamp(64px,16vw,170px);letter-spacing:-.01em}
+.hero p{font-size:clamp(18px,2.4vw,22px);color:#c9cacf;margin-top:24px}
+.lights{display:flex;gap:clamp(8px,2vw,16px);margin-bottom:40px}
+.lights i{width:clamp(34px,8vw,56px);height:clamp(34px,8vw,56px);border-radius:50%;background:#2a2b30;border:3px solid #3a3c42;transition:background .15s}
+.lights i.on{background:#ff1e1e;border-color:#ff6a6a;box-shadow:0 0 24px #ff1e1e88}
+
+section{padding:64px 0;border-bottom:1px solid var(--line)}
+h2{font-size:clamp(40px,7vw,64px);margin-bottom:28px}
+
+.weekend{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:2px solid var(--ink)}
+.weekend div{padding:20px;border-right:2px solid var(--ink)}
+.weekend div:last-child{border-right:0}
+.weekend h3{font-size:30px;margin-bottom:10px}
+.weekend p{font-size:16px;margin:0;color:var(--muted)}
+.weekend .day{font-family:"Barlow Condensed",sans-serif;font-style:italic;font-weight:700;color:var(--red);font-size:18px;display:block;margin-bottom:6px}
+
+.pts{display:grid;gap:6px;max-width:640px}
+.pts div{display:grid;grid-template-columns:44px 1fr 44px;gap:12px;align-items:center}
+.pts b{font-family:"Barlow Condensed",sans-serif;font-style:italic;font-size:22px}
+.pts span{height:18px;background:var(--red);border-radius:2px;width:var(--w)}
+.pts em{font-style:normal;text-align:right;font-variant-numeric:tabular-nums}
+
+.tyres{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:20px}
+.tyres button{font:inherit;font-family:"Barlow Condensed",sans-serif;font-style:italic;font-weight:700;font-size:22px;display:flex;align-items:center;gap:10px;background:var(--surface);color:var(--ink);border:2px solid transparent;border-radius:999px;padding:8px 20px 8px 10px;cursor:pointer}
+.tyres button[aria-pressed="true"]{border-color:var(--ink)}
+.tyres button:focus-visible,.flags button:focus-visible,.theme:focus-visible{outline:3px solid var(--red);outline-offset:2px}
+.tyres .ring{width:28px;height:28px;border-radius:50%;border:6px solid var(--c);background:var(--surface)}
+#tyreText{min-height:5.2em}
+
+.flags{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
+.flag{background:var(--surface);padding:16px;display:flex;gap:14px;align-items:flex-start;font-size:16px;line-height:1.45}
+.flag .sw{flex:0 0 40px;height:28px;border:1px solid var(--line);background:var(--c)}
+.flag .chk{background:conic-gradient(#111 25%,#fff 0 50%,#111 0 75%,#fff 0) 0 0/14px 14px}
+.flag strong{display:block;font-family:"Barlow Condensed",sans-serif;font-style:italic;font-size:22px;line-height:1}
+
+footer{padding:40px 0 56px;color:var(--muted);font-size:15px}
+.theme{position:fixed;right:16px;top:calc(12px + env(safe-area-inset-top,0px));background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:6px 14px;font:inherit;font-size:14px;cursor:pointer;z-index:5}
+@media (max-width:640px){.weekend{grid-template-columns:1fr}.weekend div{border-right:0;border-bottom:2px solid var(--ink)}.weekend div:last-child{border-bottom:0}}
+@media (prefers-reduced-motion:reduce){.lights i{transition:none}}
+</style>
+</head>
+<body>
+<button class="theme" id="theme" type="button">Switch theme</button>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="lights" id="lights" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+    <h1>Formula 1</h1>
+    <p>Twenty-two cars, eleven teams and the fastest circuit racing on the planet. Here’s how the sport works, in five minutes.</p>
+  </div>
+</header>
+
+<main>
+<section><div class="wrap">
+  <h2>A race weekend</h2>
+  <p>Every Grand Prix runs over three days. The result on Sunday sets the points, but the weekend is won earlier than most people think.</p>
+  <div class="weekend">
+    <div><span class="day">Friday</span><h3>Practice</h3><p>Teams test setups and tyres. Nothing here scores points.</p></div>
+    <div><span class="day">Saturday</span><h3>Qualifying</h3><p>Drivers set their fastest lap to decide the starting grid.</p></div>
+    <div><span class="day">Sunday</span><h3>The race</h3><p>Roughly 300 km, with at least one pit stop and a lot of strategy.</p></div>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <h2>Points</h2>
+  <p>The top ten finishers score points in each race. Drivers and teams each have their own championship.</p>
+  <div class="pts" id="pts" role="list"></div>
+</div></section>
+
+<section><div class="wrap">
+  <h2>Tyres</h2>
+  <p>Every dry tyre compound trades speed for durability. Pick one to see how it works.</p>
+  <div class="tyres" id="tyres"></div>
+  <p id="tyreText" aria-live="polite"></p>
+</div></section>
+
+<section><div class="wrap">
+  <h2>Flags</h2>
+  <div class="flags" id="flags"></div>
+</div></section>
+</main>
+
+<footer><div class="wrap">A simple guide for newcomers. Rules and calendars change each season, so check formula1.com for the current schedule.</div></footer>
+
+<script>
+(function(){
+  var lights=document.querySelectorAll('#lights i'),calm=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(!calm){lights.forEach(function(l,i){setTimeout(function(){l.classList.add('on')},500+i*450)});
+    setTimeout(function(){lights.forEach(function(l){l.classList.remove('on')})},500+5*450+900);}
+
+  var pts=[25,18,15,12,10,8,6,4,2,1],box=document.getElementById('pts');
+  pts.forEach(function(p,i){var d=document.createElement('div');d.setAttribute('role','listitem');
+    d.innerHTML='<b>P'+(i+1)+'</b><span style="--w:'+(p/25*100)+'%"></span><em>'+p+'</em>';box.appendChild(d)});
+
+  var tyres=[
+    {n:'Soft',c:'#e10600',t:'The fastest compound and the quickest to wear out. Ideal for a single fast lap in qualifying or a short, aggressive stint.'},
+    {n:'Medium',c:'#f5c400',t:'The all-rounder. It balances grip and life, so it is the most common choice for a standard race strategy.'},
+    {n:'Hard',c:'#bdbdbd',t:'The most durable compound, with the least grip. It suits long stints and hot tracks that chew through rubber.'},
+    {n:'Intermediate',c:'#2fa84f',t:'For damp tracks. It has shallow grooves that clear a light film of water.'},
+    {n:'Full wet',c:'#1f6fd1',t:'For heavy rain. It moves large amounts of water but is much slower once the track begins to dry.'}
+  ],tb=document.getElementById('tyres'),tt=document.getElementById('tyreText');
+  function pick(i){tb.querySelectorAll('button').forEach(function(b,j){b.setAttribute('aria-pressed',i===j)});tt.textContent=tyres[i].t}
+  tyres.forEach(function(t,i){var b=document.createElement('button');b.type='button';
+    b.innerHTML='<span class="ring" style="--c:'+t.c+'"></span>'+t.n;b.onclick=function(){pick(i)};tb.appendChild(b)});
+  pick(1);
+
+  var flags=[
+    ['Green','#1fa84a','The track is clear. Racing is on.'],
+    ['Yellow','#f5c400','Danger ahead. No overtaking, and drivers must slow down.'],
+    ['Red','#d6001c','The session is stopped and cars return to the pits.'],
+    ['Blue','#1f6fd1','A faster car is behind. Let it pass.'],
+    ['Black','#111','A driver is disqualified and must pit.'],
+    ['Chequered','','The session is over. First across the line wins.']
+  ],fg=document.getElementById('flags');
+  flags.forEach(function(f){var d=document.createElement('div');d.className='flag';
+    d.innerHTML='<span class="sw'+(f[1]?'':' chk')+'" style="--c:'+f[1]+'"></span><div><strong>'+f[0]+'</strong>'+f[2]+'</div>';fg.appendChild(d)});
+
+  var root=document.documentElement,btn=document.getElementById('theme');
+  btn.onclick=function(){var dark=root.dataset.theme?root.dataset.theme==='dark':matchMedia('(prefers-color-scheme: dark)').matches;
+    root.dataset.theme=dark?'light':'dark'};
+})();
+</script>
+</body>
+</html>
